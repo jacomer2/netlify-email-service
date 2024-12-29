@@ -3,10 +3,7 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-const allowedOrigins = [
-  "http://localhost:5173",
-  "http://https://mtnstreamenergy.com",
-];
+const allowedOrigins = ["http://localhost:5173", "https://mtnstreamenergy.com"];
 
 export const handler = async (event) => {
   const origin = event.headers.origin;
@@ -46,6 +43,9 @@ export const handler = async (event) => {
       auth: {
         user: process.env.EMAIL_BOT,
         pass: process.env.APP_PASS,
+      },
+      tls: {
+        rejectUnauthorized: false,
       },
     });
 
