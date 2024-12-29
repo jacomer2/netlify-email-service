@@ -38,27 +38,18 @@ export const handler = async (event) => {
     // const company = "nobody";
     // const message = "leasing services";
 
-    var transporter = nodemailer.createTransport(
-      {
-        host: "smtp.gmail.com",
-        port: 465,
-        secure: true,
-        auth: {
-          user: process.env.EMAIL_BOT,
-          pass: process.env.APP_PASS,
-        },
-        tls: {
-          rejectUnauthorized: false,
-        },
-        connectionTimeout: 10000,
-        greetingTimeout: 10000,
-        socketTimeout: 10000,
+    var transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
+      auth: {
+        user: process.env.EMAIL_BOT,
+        pass: process.env.APP_PASS,
       },
-      {
-        debug: true, // Enable debug output
-        logger: true, // Log information
-      }
-    );
+      connectionTimeout: 10000,
+      greetingTimeout: 10000,
+      socketTimeout: 10000,
+    });
 
     var mailOptions = {
       from: process.env.EMAIL_BOT,
