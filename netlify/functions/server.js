@@ -40,9 +40,9 @@ export const handler = async (event) => {
 
     var transporter = nodemailer.createTransport(
       {
-        service: "gmail",
-        port: 587,
-        secure: false,
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
         auth: {
           user: process.env.EMAIL_BOT,
           pass: process.env.APP_PASS,
