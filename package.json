@@ -15,6 +15,10 @@
   "bugs": {
     "url": "https://github.com/jacomer2/netlify-email-service/issues"
   },
-  "homepage": "https://github.com/jacomer2/netlify-email-service#readme"
+  "homepage": "https://github.com/jacomer2/netlify-email-service#readme",
+  "dependencies": {
+  "nodemailer": "^6.7.0",
+  "dotenv": "^16.0.0"
+}
   
 }
