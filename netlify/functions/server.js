@@ -3,7 +3,7 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-const allowedDomains = [
+const allowedOrigins = [
   "http://localhost:5173",
   "http://https://mtnstreamenergy.com",
 ];
