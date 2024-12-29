@@ -6,6 +6,7 @@ dotenv.config();
 const allowedOrigins = ["http://localhost:5173", "https://mtnstreamenergy.com"];
 
 export const handler = async (event) => {
+  console.log("reached handler function");
   const origin = event.headers.origin;
 
   const headers = {
@@ -18,6 +19,7 @@ export const handler = async (event) => {
 
   if (event.httpMethod === "OPTIONS") {
     // Handle preflight request
+    console.log("inside preflight request");
     return {
       statusCode: 200,
       headers,
@@ -46,9 +48,9 @@ export const handler = async (event) => {
         user: process.env.EMAIL_BOT,
         pass: process.env.APP_PASS,
       },
-      connectionTimeout: 10000,
-      greetingTimeout: 10000,
-      socketTimeout: 10000,
+      // connectionTimeout: 10000,
+      // greetingTimeout: 10000,
+      // socketTimeout: 10000,
     });
 
     var mailOptions = {
@@ -58,14 +60,17 @@ export const handler = async (event) => {
       text: `\nEmail from: ${email}\n\nName: ${firstName} ${lastName}\n\nPhone number: ${number}\n\nCompany: ${company}\n\nMessage: ${message}`,
     };
 
+    console.log("Preparing to send email...");
     transporter.sendMail(mailOptions, function (error, info) {
+      console.log("inside callback function");
       if (error) {
-        console.log(error);
+        console.log("SendMail Error:", error);
       } else {
-        console.log("Email sent: " + info.response);
+        console.log("before email sent successfully message");
+        console.log("Email sent successfully:", info.response);
       }
     });
-
+    console.log("SendMail function executed.");
     // Return success response
     return {
       statusCode: 200,
