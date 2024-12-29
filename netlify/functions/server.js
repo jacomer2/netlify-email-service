@@ -61,14 +61,19 @@ export const handler = async (event) => {
     };
 
     console.log("Preparing to send email...");
-    transporter.sendMail(mailOptions, function (error, info) {
-      console.log("inside callback function");
-      if (error) {
-        console.log("SendMail Error:", error);
-      } else {
-        console.log("before email sent successfully message");
-        console.log("Email sent successfully:", info.response);
-      }
+    await new Promise((resolve, reject) => {
+      console.log("inside promise");
+      transporter.sendMail(mailOptions, (error, info) => {
+        console.log("inside callback function");
+
+        if (error) {
+          console.log("SendMail Error:", error);
+          reject(error);
+        } else {
+          console.log("Email sent successfully:", info.response);
+          resolve(info);
+        }
+      });
     });
     console.log("SendMail function executed.");
     // Return success response
