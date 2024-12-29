@@ -3,9 +3,18 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
+const allowedDomains = [
+  "http://localhost:5173",
+  "http://https://mtnstreamenergy.com",
+];
+
 export const handler = async (event) => {
+  const origin = event.headers.origin;
+
   const headers = {
-    "Access-Control-Allow-Origin": "http://localhost:5173", // Update with site's origin
+    "Access-Control-Allow-Origin": allowedOrigins.includes(origin)
+      ? origin
+      : "",
     "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type",
   };
