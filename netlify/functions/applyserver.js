@@ -1,6 +1,7 @@
 var nodemailer = require("nodemailer");
 const dotenv = require("dotenv");
-
+const fs = require("fs");
+const path = require("path");
 dotenv.config();
 
 const allowedOrigins = ["http://localhost:5173", "https://mtnstreamenergy.com"];
@@ -27,9 +28,12 @@ export const handler = async (event) => {
   }
 
   try {
-    const data = JSON.parse(event.body);
+    const { firstName, lastName, email, number, message, file } = JSON.parse(
+      event.body
+    );
 
-    const { firstName, lastName, email, number, company, message } = data;
+    // Decode Base64 file content
+    const fileBuffer = Buffer.from(file.content.split(",")[1], "base64");
 
     var transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
@@ -44,8 +48,14 @@ export const handler = async (event) => {
     var mailOptions = {
       from: process.env.EMAIL_BOT,
       to: process.env.COMPANY_EMAIL,
-      subject: "Land services inquiry",
-      text: `\nEmail from: ${email}\n\nName: ${firstName} ${lastName}\n\nPhone number: ${number}\n\nCompany: ${company}\n\nMessage: ${message}`,
+      subject: "Job Application",
+      text: `\nEmail from: ${email}\n\nName: ${firstName} ${lastName}\n\nPhone number: ${number}\n\nMessage: ${message}`,
+      attachments: [
+        {
+          filename: file.name || "attachment",
+          content: fileBuffer || "",
+        },
+      ],
     };
 
     console.log("Preparing to send email...");
