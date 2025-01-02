@@ -4,7 +4,13 @@ const fs = require("fs");
 const path = require("path");
 dotenv.config();
 
-const allowedOrigins = ["http://localhost:5173", "https://mtnstreamenergy.com"];
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://mtnstreamenergy.com",
+  "http://mtnstreamenergy.com",
+  "https://www.mtnstreamenergy.com",
+  "http://www.mtnstreamenergy.com",
+];
 
 export const handler = async (event) => {
   console.log("reached handler function");
